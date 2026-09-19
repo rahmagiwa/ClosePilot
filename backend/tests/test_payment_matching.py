@@ -10,11 +10,11 @@ def test_exact_payment_match():
     assert result["status"] == "matched"
     assert result["difference"] == 0.00
 
-
-def test_payment_mismatch():
+ 
+def test_payment_near_match():
     result = match_payment(2480.00, [2500.00])
 
-    assert result["status"] == "mismatch"
+    assert result["status"] == "near_match"
     assert result["difference"] == -20.00
 
 

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import LoginPage from "./login";
 import PeriodSelect from "./periodselect";
-import Dashboard from "./dashboard";
+import Dashboard from "./Dashboard";
 import { runClose, askAssistant } from "./api";
 
 export default function App() {

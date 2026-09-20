@@ -1,0 +1,29 @@
+transaction_id,date,description,amount,type
+BT001,2026-08-01,AcmeCloud Software Subscription,2500.00,income
+BT002,2026-08-03,CloudPeak Technologies,1450.00,expense
+BT003,2026-08-05,Stripe Transfer,3875.00,income
+BT004,2026-08-08,Office Depot,642.18,expense
+BT005,2026-08-12,AcmeCloud Software Subscription,1800.00,income
+BT006,2026-08-15,Cloud Peak Technology,1450.00,expense
+BT007,2026-08-18,Stripe Transfer,2125.00,income
+BT008,2026-08-21,Apex Consulting LLC,3200.00,expense
+BT009,2026-08-25,AcmeCloud Software Subscription,2500.00,income
+BT010,2026-08-28,Stripe Transfer,1850.00,income
+BT101,2026-09-01,AcmeCloud Software Subscription,3200.00,income
+BT102,2026-09-02,AWS Cloud Services,875.00,expense
+BT103,2026-09-03,Northstar Analytics Invoice,1850.00,income
+BT104,2026-09-04,Office Lease September,2400.00,expense
+BT105,2026-09-05,Stripe Payout,4125.00,income
+BT106,2026-09-07,Adobe Creative Cloud,599.00,expense
+BT107,2026-09-08,Brightline Media Invoice,2750.00,income
+BT108,2026-09-09,CloudPeak Technologies,1450.00,expense
+BT109,2026-09-10,Stripe Payout,2875.00,income
+BT110,2026-09-11,Vertex Office Supplies,325.00,expense
+BT111,2026-09-12,DataBridge Consulting Invoice,2100.00,income
+BT112,2026-09-14,CloudPeak Technologies,1450.00,expense
+BT113,2026-09-15,Northstar Analytics Invoice,1830.00,income
+BT114,2026-09-16,AWS Cloud Services,920.00,expense
+BT115,2026-09-17,Stripe Payout,1950.00,income
+BT116,2026-09-18,Harbor Insurance,680.00,expense
+BT117,2026-09-19,Brightline Media Invoice,2750.00,income
+BT118,2026-09-20,Adobe Creative Cloud,599.00,expense

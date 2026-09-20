@@ -1,57 +1,64 @@
+from decimal import Decimal, InvalidOperation
+
+
+def to_money(value):
+    """Convert a value to a two-decimal Decimal for financial comparison."""
+    try:
+        return Decimal(str(value)).quantize(Decimal("0.01"))
+    except (InvalidOperation, ValueError, TypeError) as error:
+        raise ValueError(f"Invalid money amount: {value}") from error
+
+
+def normalize_vendor(vendor):
+    """
+    Normalize a vendor name for exact duplicate detection.
+
+    This intentionally does not merge words or remove business suffixes.
+    For example:
+    - "CloudPeak Technologies" matches " cloudpeak technologies "
+    - "CloudPeak Technologies" does not match "Cloud Peak Technology"
+    """
+    return " ".join(vendor.strip().lower().split())
+
+
 def are_duplicates(bill1, bill2):
     """
-    Determine whether two bills are exact duplicates.
+    Return True when two bills are exact potential duplicates.
 
-    Bills are considered duplicates when they have:
-    1. The same vendor name
-    2. The same amount
-    3. The same bill date
-
-    Vendor capitalization and surrounding whitespace are ignored.
+    Exact duplicate requirements:
+    - Same vendor name after case/whitespace normalization
+    - Same bill date
+    - Same monetary amount
     """
-
-    vendor1 = bill1["vendor"].strip().lower()
-    vendor2 = bill2["vendor"].strip().lower()
-
-    amount1 = round(float(bill1["amount"]), 2)
-    amount2 = round(float(bill2["amount"]), 2)
-
-    date1 = bill1["bill_date"]
-    date2 = bill2["bill_date"]
-
     return (
-        vendor1 == vendor2
-        and amount1 == amount2
-        and date1 == date2
+        normalize_vendor(bill1["vendor"]) == normalize_vendor(bill2["vendor"])
+        and bill1["bill_date"] == bill2["bill_date"]
+        and to_money(bill1["amount"]) == to_money(bill2["amount"])
     )
 
 
 def find_duplicate_bills(bills):
     """
-    Find potential duplicate bills.
+    Find exact potential duplicate vendor bills.
 
-    Args:
-        bills: List of bill dictionaries.
-
-    Returns:
-        List of potential duplicate pairs.
+    This function flags records for human review. It never deletes,
+    merges, changes status, or creates accounting entries.
     """
-
     duplicates = []
 
-    for i in range(len(bills)):
-        for j in range(i + 1, len(bills)):
-            bill1 = bills[i]
-            bill2 = bills[j]
-
+    for index, bill1 in enumerate(bills):
+        for bill2 in bills[index + 1:]:
             if are_duplicates(bill1, bill2):
                 duplicates.append(
                     {
+                        "status": "potential_duplicate",
+                        "review_required": True,
+                        "reason": "same_vendor_amount_and_bill_date",
                         "bill1": bill1["bill_id"],
                         "bill2": bill2["bill_id"],
-                        "vendor": bill1["vendor"],
-                        "amount": round(float(bill1["amount"]), 2),
-                        "reason": "Same vendor, amount, and bill date",
+                        "vendor": bill1["vendor"].strip(),
+                        "amount": float(to_money(bill1["amount"])),
+                        "bill_date": bill1["bill_date"],
                     }
                 )
 
@@ -59,7 +66,7 @@ def find_duplicate_bills(bills):
 
 
 if __name__ == "__main__":
-    bills = [
+    demo_bills = [
         {
             "bill_id": "BILL001",
             "vendor": "CloudPeak Technologies",
@@ -73,14 +80,12 @@ if __name__ == "__main__":
             "amount": "1450.00",
         },
         {
-            "bill_id": "BILL002",
-            "vendor": "Office Depot",
-            "bill_date": "2026-08-08",
-            "amount": "642.18",
+            "bill_id": "BILL004",
+            "vendor": "Cloud Peak Technology",
+            "bill_date": "2026-08-15",
+            "amount": "1450.00",
         },
     ]
 
-    duplicates = find_duplicate_bills(bills)
-
-    for duplicate in duplicates:
+    for duplicate in find_duplicate_bills(demo_bills):
         print(duplicate)

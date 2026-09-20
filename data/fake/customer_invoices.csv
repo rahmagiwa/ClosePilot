@@ -1,0 +1,14 @@
+invoice_id,customer,invoice_date,due_date,amount,status
+INV001,AcmeCloud Software Subscription,2026-08-01,2026-08-15,2500.00,paid
+INV002,AcmeCloud Software Subscription,2026-08-12,2026-08-26,1800.00,paid
+INV003,AcmeCloud Software Subscription,2026-08-25,2026-09-08,2500.00,paid
+INV004,Northstar Analytics,2026-08-10,2026-08-24,1250.00,paid
+INV005,Greenline Media,2026-08-14,2026-08-28,975.00,open
+INV006,DataBridge Inc,2026-08-20,2026-09-03,2125.00,paid
+INV101,AcmeCloud Software Subscription,2026-09-01,2026-09-15,3200.00,paid
+INV102,Northstar Analytics,2026-09-02,2026-09-16,1850.00,paid
+INV103,Brightline Media,2026-09-04,2026-09-18,2750.00,paid
+INV104,DataBridge Consulting,2026-09-06,2026-09-20,2100.00,paid
+INV105,Northstar Analytics,2026-09-12,2026-09-26,1850.00,open
+INV106,Greenfield Health,2026-09-13,2026-09-27,1250.00,open
+INV107,Brightline Media,2026-09-15,2026-09-29,2750.00,paid

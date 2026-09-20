@@ -1,4 +1,21 @@
-def verify_payout(gross_amount, fees, refunds, net_amount, tolerance=0.00):
+from decimal import Decimal, InvalidOperation
+
+
+def to_money(value):
+    """Convert a money value into a Decimal rounded to two places."""
+    try:
+        return Decimal(str(value)).quantize(Decimal("0.01"))
+    except (InvalidOperation, ValueError, TypeError) as error:
+        raise ValueError(f"Invalid money amount: {value}") from error
+
+
+def verify_payout(
+    gross_amount,
+    fees,
+    refunds,
+    net_amount,
+    tolerance="0.00",
+):
     """
     Verify that a Stripe payout's net amount is mathematically correct.
 
@@ -6,57 +23,69 @@ def verify_payout(gross_amount, fees, refunds, net_amount, tolerance=0.00):
         gross amount - fees - refunds = net amount
 
     Args:
-        gross_amount: Total Stripe payment amount.
+        gross_amount: Total customer payments collected by Stripe.
         fees: Stripe processing fees.
-        refunds: Total refunds.
-        net_amount: Amount actually paid out.
-        tolerance: Maximum allowed difference.
+        refunds: Refunds deducted from the payout.
+        net_amount: Net amount reported by Stripe.
+        tolerance: Allowed difference before marking a mismatch.
 
     Returns:
-        Dictionary containing the verification result.
+        A structured reconciliation result. This function only verifies
+        payout math; it does not yet match the Stripe payout to a bank
+        transaction or general-ledger entry.
     """
+    gross_amount = to_money(gross_amount)
+    fees = to_money(fees)
+    refunds = to_money(refunds)
+    net_amount = to_money(net_amount)
+    tolerance = to_money(tolerance)
 
-    gross_amount = round(float(gross_amount), 2)
-    fees = round(float(fees), 2)
-    refunds = round(float(refunds), 2)
-    net_amount = round(float(net_amount), 2)
-
-    calculated_net = round(gross_amount - fees - refunds, 2)
-    difference = round(net_amount - calculated_net, 2)
+    expected_net = gross_amount - fees - refunds
+    difference = net_amount - expected_net
 
     if abs(difference) <= tolerance:
         status = "valid"
+        review_required = False
+        reason = "stripe_payout_math_verified"
     else:
         status = "mismatch"
+        review_required = True
+        reason = "stripe_payout_math_difference"
 
     return {
         "status": status,
-        "gross_amount": gross_amount,
-        "fees": fees,
-        "refunds": refunds,
-        "expected_net": calculated_net,
-        "actual_net": net_amount,
-        "difference": difference,
+        "review_required": review_required,
+        "reason": reason,
+        "gross_amount": float(gross_amount),
+        "fees": float(fees),
+        "refunds": float(refunds),
+        "expected_net": float(expected_net),
+        "actual_net": float(net_amount),
+        "difference": float(difference),
     }
 
 
 if __name__ == "__main__":
-    # AcmeCloud PO001
-    result = verify_payout(
+    valid_payout = verify_payout(
         gross_amount=4000.00,
         fees=125.00,
         refunds=0.00,
         net_amount=3875.00,
     )
+    print(valid_payout)
 
-    print(result)
+    refund_payout = verify_payout(
+        gross_amount=4000.00,
+        fees=125.00,
+        refunds=100.00,
+        net_amount=3775.00,
+    )
+    print(refund_payout)
 
-    # Example of an incorrect payout
-    result = verify_payout(
+    invalid_payout = verify_payout(
         gross_amount=4000.00,
         fees=125.00,
         refunds=0.00,
         net_amount=3850.00,
     )
-
-    print(result)
+    print(invalid_payout)

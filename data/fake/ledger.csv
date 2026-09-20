@@ -1,0 +1,39 @@
+entry_id,date,account,description,debit,credit,reference
+LE001,2026-08-01,Accounts Receivable,INV001,2500.00,0,INV001
+LE002,2026-08-01,Revenue,Software Subscription Revenue,0,2500.00,INV001
+LE003,2026-08-03,Accounts Payable,CloudPeak Technologies,1450.00,0,BILL001
+LE004,2026-08-03,Cash,Payment to CloudPeak Technologies,0,1450.00,BILL001
+LE005,2026-08-05,Cash,Stripe Payout,3875.00,0,PO001
+LE006,2026-08-05,Stripe Clearing,Stripe Payout,0,3875.00,PO001
+LE007,2026-08-08,Office Expense,Office Depot,642.18,0,BILL002
+LE008,2026-08-08,Cash,Payment to Office Depot,0,642.18,BILL002
+LE009,2026-08-12,Accounts Receivable,INV002,1800.00,0,INV002
+LE010,2026-08-12,Revenue,Software Subscription Revenue,0,1800.00,INV002
+LE011,2026-08-15,Accounts Payable,Cloud Peak Technology,1450.00,0,BILL004
+LE012,2026-08-15,Cash,Payment to Cloud Peak Technology,0,1450.00,BILL004
+LE013,2026-08-18,Cash,Stripe Payout,2125.00,0,PO002
+LE014,2026-08-18,Stripe Clearing,Stripe Payout,0,2125.00,PO002
+LE015,2026-08-21,Consulting Expense,Apex Consulting LLC,3200.00,0,BILL003
+LE016,2026-08-21,Cash,Payment to Apex Consulting LLC,0,3200.00,BILL003
+LE017,2026-08-25,Accounts Receivable,INV003,2500.00,0,INV003
+LE018,2026-08-25,Revenue,Software Subscription Revenue,0,2500.00,INV003
+LE019,2026-08-28,Cash,Stripe Payout,1850.00,0,PO003
+LE020,2026-08-28,Stripe Clearing,Stripe Payout,0,1850.00,PO003
+LE101,2026-09-01,Accounts Receivable,INV101,3200.00,0,INV101
+LE102,2026-09-02,Accounts Payable,BILL101,0,875.00,BILL101
+LE103,2026-09-03,Accounts Receivable,INV102,1850.00,0,INV102
+LE104,2026-09-04,Accounts Payable,BILL102,0,2400.00,BILL102
+LE105,2026-09-05,Cash,Stripe payout PO101,4125.00,0,PO101
+LE106,2026-09-07,Accounts Payable,BILL103,0,599.00,BILL103
+LE107,2026-09-08,Accounts Receivable,INV103,2750.00,0,INV103
+LE108,2026-09-09,Accounts Payable,BILL104,0,1450.00,BILL104
+LE109,2026-09-10,Cash,Stripe payout PO102,2875.00,0,PO102
+LE110,2026-09-11,Accounts Payable,BILL105,0,325.00,BILL105
+LE111,2026-09-12,Accounts Receivable,INV104,2100.00,0,INV104
+LE112,2026-09-14,Accounts Payable,BILL106,0,1450.00,BILL106
+LE113,2026-09-15,Accounts Receivable,INV105,1850.00,0,INV105
+LE114,2026-09-16,Accounts Payable,BILL107,0,920.00,BILL107
+LE115,2026-09-17,Cash,Stripe payout PO103,1950.00,0,PO103
+LE116,2026-09-18,Accounts Payable,BILL108,0,680.00,BILL108
+LE117,2026-09-19,Accounts Receivable,INV107,2750.00,0,INV107
+LE118,2026-09-20,Accounts Payable,Adobe Creative Cloud,0,599.00,BILL103
